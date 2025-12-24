@@ -25,7 +25,7 @@ const HeroContent = () => {
   }, []);
 
   return (
-    <main className="hero-content">
+    <section className="hero-content">
       <div className="flex-center w-screen px-5 lg:justify-between">
         <p>Sizin Hikayeniz, Bizim Sahnemiz.</p>
         <h1
@@ -38,7 +38,7 @@ const HeroContent = () => {
           Aşkınızı kutlamak için en doğal, <br /> en büyüleyici atmosfer.
         </p>
       </div>
-    </main>
+    </section>
   );
 };
 

@@ -4,6 +4,7 @@ import "./globals.css";
 import SmoothScroll from "@/providers/SmoothScroll";
 
 import { Corinthia } from "next/font/google";
+import Navbar from "@/components/Navbar";
 
 const corinthia = Corinthia({
   subsets: ["latin"],
@@ -23,7 +24,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Şelale Düğün Salonu",
-  description: "Şelale Düğün Salonu; profesyonel organizasyon ekibi ve kusursuz hizmet anlayışıyla düğün, nişan, kına ve özel davetlerinize ev sahipliği yapar.",
+  description:
+    "Şelale Düğün Salonu; profesyonel organizasyon ekibi ve kusursuz hizmet anlayışıyla düğün, nişan, kına ve özel davetlerinize ev sahipliği yapar.",
 };
 
 export default function RootLayout({
@@ -37,7 +39,8 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${corinthia.variable} antialiased`}
       >
         <SmoothScroll>
-          {children}
+          <Navbar />
+          <main>{children}</main>
         </SmoothScroll>
       </body>
     </html>

@@ -62,7 +62,7 @@ const Hero = () => {
   }, [lenis]);
 
   return (
-    <main className="flex-center h-screen w-screen overflow-hidden">
+    <section className="flex-center h-screen w-screen overflow-hidden">
       <div
         ref={containerRef}
         className="relative w-[300px] h-[400px] overflow-hidden"
@@ -92,7 +92,7 @@ const Hero = () => {
       </div>
 
       <HeroContent />
-    </main>
+    </section>
   );
 };
 
