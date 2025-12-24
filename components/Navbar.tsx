@@ -31,7 +31,7 @@ const Navbar = () => {
         stagger: 0.15,
         duration: 0.5,
       },
-      "-=0.1"
+      "-=0.5"
     );
     tl.current.fromTo(
       ".menu-social",
@@ -41,7 +41,7 @@ const Navbar = () => {
         opacity: 1,
         duration: 0.3,
       },
-      "<"
+      "-=0.4"
     );
   }, { scope: container });
 
@@ -106,7 +106,7 @@ const Navbar = () => {
           <ul className="flex gap-2 mt-5 text-black">
             {socialMediaLinks.map(({name, href}) => (
               <li key={name} className="menu-social">
-                <Link href={href}>{name}</Link>
+                <Link href={href} target="_blank" rel="noopener noreferrer">{name}</Link>
               </li>
             ))}
           </ul>
