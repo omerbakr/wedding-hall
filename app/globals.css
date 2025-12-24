@@ -12,7 +12,14 @@ body {
 }
 
 @theme {
+  --color-primary: #d7b468;
   --font-corinthia: "Corinthia", sans-serif;
+}
+
+@utility chrome-smooth {
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  backface-visibility: hidden;
 }
 
 @utility flex-center {
@@ -27,19 +34,25 @@ body {
   @apply absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
 }
 
-@utility hero-img {
-  contain: layout paint style;
-  will-change: clip-path;
-  backface-visibility: hidden;
-  transform: translateZ(0);
+@layer base {
+  p {
+    @apply font-semibold text-[14px];
+  }
 }
 
+
 @layer components {
+  .hero-img {
+    @apply contain-[layout_paint_style] will-change-[clip-path] backface-hidden translate-z-0;
+  }
   .hero-content {
     @apply flex items-center justify-center w-screen absolute z-10;
 
     p {
-      @apply text-white/90 font-semibold text-[14px] max-lg:hidden;
+      @apply text-white/90 max-lg:hidden;
     }
+  }
+  .navbar {
+    @apply w-screen py-6 px-5 absolute z-10 max-sm:hidden;
   }
 }

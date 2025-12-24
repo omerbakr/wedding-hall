@@ -7,6 +7,11 @@ export type NavLink = {
   href: string;
 };
 
+export type SocialLink = {
+  name: string;
+  href: string;
+}
+
 export const heroImages: readonly HeroImage[] = [
   { imgPath: "/images/nikah.webp" },
   { imgPath: "/images/selale.webp" },
@@ -24,5 +29,10 @@ export const navLinks: readonly NavLink[] = [
   { name: "Yorumlarınız", href: "#yorumlar" },
   { name: "Ulaşım", href: "#ulaşım" },
 ] as const;
+
+export const socialMediaLinks: readonly SocialLink[] = [
+  { name: "Instagram", href:"https://www.instagram.com/selale.dugunsalonu/"},
+  { name: "Facebook", href:"https://www.facebook.com/selaledugunizmir/?locale=tr_TR"},
+] as const
 
 export default heroImages;
