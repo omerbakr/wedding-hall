@@ -51,5 +51,3 @@ export const socialMediaLinks: readonly SocialLink[] = [
   { name: "Instagram", href: "https://www.instagram.com/selale.dugunsalonu/" },
   { name: "Facebook", href: "https://www.facebook.com/selaledugunizmir/?locale=tr_TR" },
 ] as const;
-
-export default heroImages;
