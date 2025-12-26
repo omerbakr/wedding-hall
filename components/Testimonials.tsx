@@ -5,6 +5,7 @@ import { useGSAP } from "@gsap/react";
 import Image from "next/image";
 import { useRef } from "react";
 import { Star } from "lucide-react";
+import clsx from "clsx";
 
 import { testimonials } from "@/constants";
 import TestimonialCard from "./TestimonialCard";
@@ -51,9 +52,8 @@ const Testimonials = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-5 z-10">
         {testimonials.map(({ name, review }, i) => (
           <TestimonialCard
-            key={name}
-            className={`testimonial-card ${i > 2 ? "hidden md:flex" : ""}`}
-            aria-hidden={i > 2}
+            key={i}
+            className={clsx("testimonial-card", i > 2 && "hidden md:flex")}
           >
             <h4 className="font-semibold mb-3.5">{name}</h4>
             <p className="font-light text-[15px]">{review}</p>
@@ -67,7 +67,7 @@ const Testimonials = () => {
                 <Star
                   key={i}
                   size={20}
-                  fill="#d7b468"
+                  fill="currentColor"
                   className="text-primary"
                   aria-hidden="true"
                 />
