@@ -5,7 +5,7 @@ interface VennSchemaProps {
   dotId: string;
 }
 
-const VennSchema = ({ id, d, className="fill-none stroke-gray-300 stroke-1 opacity-50", dotId }: VennSchemaProps) => {
+const VennSchema = ({ id, d, className="fill-none stroke-gray-300 stroke-1 opacity-40", dotId }: VennSchemaProps) => {
   return (
     <g>
       <path 

@@ -20,7 +20,13 @@ const Services = () => {
 
   useGSAP(
     () => {
-      const vennDuration = 8;
+      const images = gsap.utils.toArray(".floating-image");
+
+      const startDelay = 1;
+      const spreadDuration = 4
+      const imageAnimDuration = 2;
+
+      const totalSceneDuration = startDelay + spreadDuration + imageAnimDuration;
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -41,21 +47,20 @@ const Services = () => {
 
       tl.to("#dot1",
         {
-          duration: vennDuration,
+          duration: totalSceneDuration,
           ease: "none",
           motionPath: {
             path: path1,
-            alignOrigin: [0.5, 0.5],
             start: 0,
             end: 3,
           },
         },
-        ">-1"
+        0 
       );
 
       tl.to("#dot2",
         {
-          duration: vennDuration,
+          duration: totalSceneDuration,
           ease: "none",
           motionPath: { path: path2, start: 0.33, end: 3.33 },
         },
@@ -64,26 +69,24 @@ const Services = () => {
 
       tl.to("#dot3",
         {
-          duration: vennDuration,
+          duration: totalSceneDuration,
           ease: "none",
           motionPath: { path: path3, start: 0.66, end: 3.66 },
         },
         "<"
       );
 
-      const images = gsap.utils.toArray(".floating-image");
-
       const w = window.innerWidth;
       const h = window.innerHeight;
       const maxDist = Math.sqrt(w * w + h * h) / 2;
-
       const safeRadius = maxDist + 300;
 
       images.forEach((img, i) => {
         const angle = gsap.utils.random(0, Math.PI * 2);
-
         const targetX = Math.cos(angle) * safeRadius;
         const targetY = Math.sin(angle) * safeRadius;
+        
+        const imageStartTime = startDelay + (i / (images.length - 1 || 1)) * spreadDuration;
 
         tl.fromTo(img,
           {
@@ -97,7 +100,7 @@ const Services = () => {
             x: targetX,
             y: targetY,
             scale: 6,
-            duration: 2,
+            duration: imageAnimDuration,
             keyframes: {
               "0%": { opacity: 0, scale: 0 },
               "15%": { opacity: 1 },
@@ -105,8 +108,7 @@ const Services = () => {
               "100%": { opacity: 0 },
             },
           },
-
-          2 + (i * (vennDuration - 4)) / images.length
+          imageStartTime
         );
       });
     },
@@ -118,9 +120,8 @@ const Services = () => {
       ref={container}
       className="services h-screen w-full overflow-hidden relative text-white"
     >
-      <h2 className="service-title">
-        Hayatınızdaki özel anlar için tek bir adres, <br /> kusursuz bir
-        organizasyon.
+      <h2 className="service-title mix-blend-plus-lighter" >
+        Nişandan düğüne, kınadan sünnete... <br /> Siz hayal edin, biz kusursuz bir gerçeğe dönüştürelim.
       </h2>
 
       <svg className="abs-center w-full max-w-4xl z-10" viewBox="0 -60 600 450">
