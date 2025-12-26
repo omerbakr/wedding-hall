@@ -144,7 +144,6 @@ const Services = () => {
             alt={`Service img ${index}`}
             className="object-cover"
             priority={index < 3}
-            quality={100}
           />
         </div>
       ))}
