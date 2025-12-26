@@ -70,9 +70,9 @@ const Navbar = () => {
         <ul className="flex items-center justify-between w-full">
           {navLinks.map(({ name, href }) => (
             <li key={name}>
-              <Link href={href}>
-                <p className="text-white">({name})</p>
-              </Link>
+              <a href={href} className="text-white">
+                ({name})
+              </a>
             </li>
           ))}
         </ul>
@@ -96,7 +96,7 @@ const Navbar = () => {
                 key={name}
                 className="nav-link"
               >
-                <Link href={href}>{name}</Link>
+                <a href={href} onClick={() => setIsMenuActive(false)}>{name}</a>
               </li>
             ))}
           </ul>
