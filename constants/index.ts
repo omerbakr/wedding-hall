@@ -16,6 +16,11 @@ export type SocialLink = {
   href: string;
 };
 
+export type Testimonials = {
+  name: string;
+  review: string;
+}
+
 export const heroImages: readonly HeroImage[] = [
   { imgPath: "/images/nikah.webp" },
   { imgPath: "/images/selale.webp" },
@@ -50,4 +55,31 @@ export const navLinks: readonly NavLink[] = [
 export const socialMediaLinks: readonly SocialLink[] = [
   { name: "Instagram", href: "https://www.instagram.com/selale.dugunsalonu/" },
   { name: "Facebook", href: "https://www.facebook.com/selaledugunizmir/?locale=tr_TR" },
+] as const;
+
+export const testimonials: readonly Testimonials[] = [
+  { 
+    name: "Ne**** Ul****",
+    review: "Çınar ağaçlarının arasında, durmadan akan şelale sesinin eşliğinde, doğa ile iç içe bir atmosfere sahip. Yapaylıktan uzak, hoş ışıklandırmasıyla oldukça doğal bir düğün salonu.",
+  },
+  { 
+    name: "Se**** Ya****",
+    review: "Temmuz ayında düğünümüz oldu. Hiç bu kadar mükemmel bir hizmet beklemiyorduk. Özellikle Taha Bey’in, en az sağdıçlar kadar koşturması bizi hayrete düşürdü. İletişim, nezaket… Her şeyden çok memnun kaldık. Bundan sonraki düğünlerde sizi severek önereceğiz.",
+  },
+  { 
+    name: "Ne**** Bi****",
+    review: "Her şey çok güzeldi. En önemlisi çok eğlendik. En güzel günümüz mutlu geçti. İçerik olarak çerezler özellikle tazecikti. Ses sistemi kaliteliydi. Davetlilerden gelen tepkiler de olumluydu. Bizimle ilgilenen bahçe ekibine teşekkür ediyoruz.",
+  },
+  { 
+    name: "Zi**** Ko****",
+    review: "25.05.2025 tarihinde düğünümüzü yaptık. Her şey çok güzeldi, kesinlikle tavsiye ediyorum. Başta Taha Bey olmak üzere ilgi, alaka ve güler yüz düğün boyunca; öncesinde ve sonrasında da devam etti. Kısacası bir düğünde olması gereken her şey vardı. Ortamın ambiyansı güzeldi. Her şey için teşekkürler Şelale ekibi.",
+  },
+  { 
+    name: "Mu**** Ay****",
+    review: "08.05.2022 tarihinde düğünümüz burada oldu. Taha Bey ve değerli halası, düğün başından sonuna kadar bizim yanımızda oldular. Konuştuğumuz her şey eksiksiz bir şekilde yapılmıştı. Fotoğrafçıya, müzisyenlere ve çalışan garsonlara da bizimle detaylı ilgilendikleri için ayrıca çok teşekkür ediyoruz. Tereddüt etmeden düğününüz için tercih edebilirsiniz.",
+  },
+  { 
+    name: "El**** Ba****",
+    review: "O kadar güzel ilgilendiler ki bizimle, gerçekten gelen davetlilerimiz tarafından bize defalarca söylendi. Taha Bey’e çok teşekkür ederiz. Şüphesiz daha çok güvenebileceğiniz bir salon bulamazsınız. Ben burada nişanımı yapalı 1 sene oldu; yorum yapmayı unutmuşuz. Videomuzu izlerken tekrar övgüler alınca hemen koşup baktım, yorum yapmayı unuttuğumu fark ettim.",
+  },
 ] as const;
