@@ -16,10 +16,16 @@ export type SocialLink = {
   href: string;
 };
 
-export type Testimonials = {
+export type Testimonial = {
   name: string;
   review: string;
 }
+
+export type TransportRoute = {
+  line: number;
+  route: string;
+  href: string;
+};
 
 export const heroImages: readonly HeroImage[] = [
   { imgPath: "/images/nikah.webp" },
@@ -57,7 +63,7 @@ export const socialMediaLinks: readonly SocialLink[] = [
   { name: "Facebook", href: "https://www.facebook.com/selaledugunizmir/?locale=tr_TR" },
 ] as const;
 
-export const testimonials: readonly Testimonials[] = [
+export const testimonials: readonly Testimonial[] = [
   { 
     name: "Ne**** Ul****",
     review: "Çınar ağaçlarının arasında, durmadan akan şelale sesinin eşliğinde, doğa ile iç içe bir atmosfere sahip. Yapaylıktan uzak, hoş ışıklandırmasıyla oldukça doğal bir düğün salonu.",
@@ -81,5 +87,33 @@ export const testimonials: readonly Testimonials[] = [
   { 
     name: "El**** Ba****",
     review: "O kadar güzel ilgilendiler ki bizimle, gerçekten gelen davetlilerimiz tarafından bize defalarca söylendi. Taha Bey’e çok teşekkür ederiz. Şüphesiz daha çok güvenebileceğiniz bir salon bulamazsınız. Ben burada nişanımı yapalı 1 sene oldu; yorum yapmayı unutmuşuz. Videomuzu izlerken tekrar övgüler alınca hemen koşup baktım, yorum yapmayı unuttuğumu fark ettim.",
+  },
+] as const;
+
+export const transportRoutes: readonly TransportRoute[] = [
+  {
+    line: 67,
+    route: "Evka 3 Metro - Pınarbaşı",
+    href: "https://www.eshot.gov.tr/tr/TransportationTimetable/67/289",
+  },
+  {
+    line: 267,
+    route: "Bornova Metro - Pınarbaşı",
+    href: "https://www.eshot.gov.tr/tr/TransportationTimetable/267/289",
+  },
+  {
+    line: 560,
+    route: "Halkapınar Metro - Pınarbaşı",
+    href: "https://www.eshot.gov.tr/tr/TransportationTimetable/560/289",
+  },
+  {
+    line: 60,
+    route: "Kemer Akt. Merkezi - Pınarbaşı",
+    href: "https://www.eshot.gov.tr/tr/TransportationTimetable/60/289",
+  },
+  {
+    line: 358,
+    route: "Bornova Metro - Pınarbaşı",
+    href: "https://www.eshot.gov.tr/tr/TransportationTimetable/358/289",
   },
 ] as const;
