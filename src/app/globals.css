@@ -87,4 +87,8 @@ body {
       @apply -z-50 absolute hidden lg:block -left-[18%] -top-[36%];
     }
   }
+
+  .footer {
+    @apply w-screen h-auto bg-primary text-white px-10 pt-20 pb-5 md:px-25 lg:px-50 lg:pt-20;
+  }
 }
