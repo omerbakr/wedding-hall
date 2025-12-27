@@ -40,7 +40,7 @@ const Transportation = () => {
   );
 
   return (
-    <section id="ulasim" ref={container}>
+    <section id="ulasim" ref={container} className="transportation">
       <h4 className="sub-title">Ulaşım</h4>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-5 p-10 relative">
@@ -55,7 +55,7 @@ const Transportation = () => {
 
         <iframe
           src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d17580.809884509952!2d27.255853649999995!3d38.43044255!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14b963acb1d8ae1b%3A0x88eb2b63380250b8!2zxZ5lbGFsZSBEw7zEn8O8biBTYWxvbnU!5e1!3m2!1str!2str!4v1766790749729!5m2!1str!2str"
-          className="col-span-2 w-full h-full min-h-80 rounded-xl shadow-xl map"
+          className="map"
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
           title="Şelale Düğün Salonu konumu"

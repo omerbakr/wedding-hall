@@ -72,7 +72,7 @@ body {
     @apply font-corinthia text-primary text-6xl text-center mb-5;
   }
 
-  #ulasim {
+  .transportation {
     @apply my-5 md:my-20 col-center;
 
     .map {
@@ -80,7 +80,7 @@ body {
     }
 
     .bus {
-      @apply flex items-center gap-2 bg-white rounded-lg shadow-sm;
+      @apply flex items-center gap-2 bg-white rounded-lg shadow-sm hover:bg-gray-100 transition-colors;
     }
     
     .flower {
