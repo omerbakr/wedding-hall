@@ -30,7 +30,7 @@ export type TransportRoute = {
 export const heroImages: readonly HeroImage[] = [
   { imgPath: "/images/nikah.webp" },
   { imgPath: "/images/selale.webp" },
-  { imgPath: "/images/sahne2.webp" },
+  { imgPath: "/images/masa-3.webp" },
   { imgPath: "/images/agac2.webp" },
   { imgPath: "/images/masa.webp" },
   { imgPath: "/images/cift.webp" },
@@ -40,7 +40,6 @@ export const heroImages: readonly HeroImage[] = [
 
 export const serviceImages: readonly ServiceImage[] = [
   { imgPath: "/images/cift-2.webp" },
-  { imgPath: "/images/kinatahti.webp" },
   { imgPath: "/images/sahne.webp" },
   { imgPath: "/images/masa-2.webp" },
   { imgPath: "/images/kinatahti-2.webp" },
@@ -48,6 +47,7 @@ export const serviceImages: readonly ServiceImage[] = [
   { imgPath: "/images/cift-4.webp" },
   { imgPath: "/images/kinatahti-3.webp" },
   { imgPath: "/images/nikah.webp" },
+  { imgPath: "/images/foto-cekim.webp" },
   { imgPath: "/images/kinatahti-4.webp" },
 ] as const;
 

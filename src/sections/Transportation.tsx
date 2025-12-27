@@ -49,8 +49,9 @@ const Transportation = () => {
           alt="flower illustration"
           width={700}
           height={700}
-          className="flower"
+          className="flower h-auto w-auto"
           aria-hidden="true"
+          loading="eager"
         />
 
         <iframe

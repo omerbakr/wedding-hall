@@ -16,14 +16,14 @@ const path2 = "M225,230 m-150,0 a150,150 0 1,0 300,0 a150,150 0 1,0 -300,0";
 const path3 = "M375,230 m-150,0 a150,150 0 1,0 300,0 a150,150 0 1,0 -300,0";
 
 const Services = () => {
-  const container = useRef(null);
+  const container = useRef<HTMLElement>(null);
 
   useGSAP(
     () => {
-      const images = gsap.utils.toArray(".floating-image");
+      const images = gsap.utils.toArray<HTMLElement>(".floating-image");
 
       const startDelay = 1;
-      const spreadDuration = 4
+      const spreadDuration = 4;
       const imageAnimDuration = 2;
 
       const totalSceneDuration = startDelay + spreadDuration + imageAnimDuration;
@@ -55,7 +55,6 @@ const Services = () => {
             end: 3,
           },
         },
-        0 
       );
 
       tl.to("#dot2",
@@ -85,20 +84,26 @@ const Services = () => {
         const angle = gsap.utils.random(0, Math.PI * 2);
         const targetX = Math.cos(angle) * safeRadius;
         const targetY = Math.sin(angle) * safeRadius;
-        
-        const imageStartTime = startDelay + (i / (images.length - 1 || 1)) * spreadDuration;
 
-        tl.fromTo(img,
+        const imageStartTime =
+          startDelay + (i / (images.length - 1 || 1)) * spreadDuration;
+
+        tl.fromTo(
+          img,
           {
             scale: 0,
             opacity: 0,
             x: 0,
             y: 0,
+            xPercent: -50,
+            yPercent: -50,
             rotation: 0,
           },
           {
             x: targetX,
             y: targetY,
+            xPercent: -50,
+            yPercent: -50,
             scale: 6,
             duration: imageAnimDuration,
             keyframes: {
@@ -120,8 +125,9 @@ const Services = () => {
       ref={container}
       className="services h-screen w-full overflow-hidden relative text-white"
     >
-      <h2 className="service-title mix-blend-plus-lighter" >
-        Nişandan düğüne, kınadan sünnete... <br /> Siz hayal edin, biz kusursuz bir gerçeğe dönüştürelim.
+      <h2 className="service-title mix-blend-plus-lighter">
+        Nişandan düğüne, kınadan sünnete... <br /> Siz hayal edin, biz kusursuz
+        bir gerçeğe dönüştürelim.
       </h2>
 
       <svg className="abs-center w-full max-w-4xl z-10" viewBox="0 -60 600 450">
@@ -135,7 +141,7 @@ const Services = () => {
           key={index}
           className="floating-image"
           style={{
-            transform: "translate(-50%, -50%) scale(0)",
+            transform: "scale(0)",
           }}
         >
           <Image

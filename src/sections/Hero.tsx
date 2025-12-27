@@ -83,7 +83,7 @@ const Hero = () => {
                 fill
                 sizes="(max-width: 767px) 100vh, 100vw"
                 className="object-cover"
-                priority
+                priority={i < 2}
                 loading="eager"
               />
             </div>
