@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 
 import { navLinks, socialMediaLinks } from "@/constants";
-import MenuPanel from "./MenuPanel";
+import MenuPanel from "@/components/MenuPanel";
 
 const Navbar = () => {
   const [isMenuActive, setIsMenuActive] = useState(false);

@@ -6,7 +6,7 @@ import { MotionPathPlugin, ScrollTrigger } from "gsap/all";
 import { useRef } from "react";
 import Image from "next/image";
 
-import VennSchema from "./VennSchema";
+import VennSchema from "@/components/VennSchema";
 import { serviceImages } from "@/constants";
 
 gsap.registerPlugin(ScrollTrigger, MotionPathPlugin);

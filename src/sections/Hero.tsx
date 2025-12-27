@@ -6,8 +6,8 @@ import { useEffect, useRef } from "react";
 import { useLenis } from "lenis/react";
 import Image from "next/image";
 
-import { heroImages } from "../constants";
-import HeroContent from "./HeroText";
+import { heroImages } from "@/constants";
+import HeroContent from "@/components/HeroText";
 
 gsap.registerPlugin(ScrollTrigger);
 

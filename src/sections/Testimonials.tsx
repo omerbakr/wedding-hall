@@ -8,7 +8,7 @@ import { Star } from "lucide-react";
 import clsx from "clsx";
 
 import { testimonials } from "@/constants";
-import TestimonialCard from "./TestimonialCard";
+import TestimonialCard from "@/components/TestimonialCard";
 
 const Testimonials = () => {
   const container = useRef(null);

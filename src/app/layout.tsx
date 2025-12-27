@@ -6,6 +6,7 @@ import SmoothScroll from "@/providers/SmoothScroll";
 import { Corinthia } from "next/font/google";
 import Navbar from "@/components/Navbar";
 
+
 const corinthia = Corinthia({
   subsets: ["latin"],
   weight: ["400", "700"],
