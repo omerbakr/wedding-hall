@@ -60,7 +60,7 @@ const Navbar = () => {
         },
         "-=0.5"
       );
-      
+
       tl.current.fromTo(
         ".menu-social",
         { y: 10, opacity: 0 },
@@ -108,7 +108,11 @@ const Navbar = () => {
         <ul className="flex items-center justify-between w-full">
           {navLinks.map(({ name, href }) => (
             <li key={name}>
-              <a href={href}>({name})</a>
+              {href.startsWith("#") ? (
+                <a href={href}>({name})</a>
+              ) : (
+                <Link href={href}>({name})</Link>
+              )}
             </li>
           ))}
         </ul>
@@ -117,7 +121,7 @@ const Navbar = () => {
       <div className="fixed top-6 right-5 z-50 sm:hidden">
         <button
           onClick={() => setIsMenuActive(!isMenuActive)}
-          className="ham rounded-sm p-1 text-white transition-colors" 
+          className="ham rounded-sm p-1 text-white transition-colors"
           aria-label={isMenuActive ? "Close menu" : "Open menu"}
         >
           {isMenuActive ? (
@@ -128,7 +132,7 @@ const Navbar = () => {
         </button>
       </div>
 
-      <div className="panel fixed top-0 right-0 z-40 h-screen w-screen translate-x-full rounded-l-4xl border-l-20 border-primary bg-white px-20">
+      <div className="panel fixed top-0 right-0 z-40 h-dvh w-screen translate-x-full rounded-l-4xl border-l-20 border-primary bg-white px-20">
         <div className="flex h-full flex-col justify-center gap-5">
           <h1>Menu</h1>
           <div className="h-px w-full bg-primary" />
@@ -136,9 +140,15 @@ const Navbar = () => {
           <ul className="space-y-2 text-4xl">
             {navLinks.map(({ name, href }) => (
               <li key={name} className="nav-link">
-                <a href={href} onClick={() => setIsMenuActive(false)}>
-                  {name}
-                </a>
+                {href.startsWith("#") ? (
+                  <a href={href} onClick={() => setIsMenuActive(false)}>
+                    {name}
+                  </a>
+                ) : (
+                  <Link href={href} onClick={() => setIsMenuActive(false)}>
+                    {name}
+                  </Link>
+                )}
               </li>
             ))}
           </ul>
