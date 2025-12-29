@@ -1,6 +1,6 @@
 "use client";
 
-import { use, useEffect, useState } from "react";
+import { use, useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 
 import { createClient } from "@/utils/supabase/client";
@@ -21,7 +21,7 @@ export default function LivePage({ params }: { params: Promise<{ slug: string }>
   const { slug } = use(params);
 
   const [photos, setPhotos] = useState<Photo[]>([]);
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
 
   useEffect(() => {
     const fetchPhotos = async () => {
@@ -33,7 +33,7 @@ export default function LivePage({ params }: { params: Promise<{ slug: string }>
         .order("created_at", { ascending: false });
 
       if (error) {
-        console.error("Hata:", error);
+        console.error("Failed to fetch approved photos for event:", error);
       } else {
         setPhotos(data || []);
       }
@@ -62,7 +62,7 @@ export default function LivePage({ params }: { params: Promise<{ slug: string }>
     return () => {
       supabase.removeChannel(channel);
     };
-  }, [slug, supabase]);
+  }, [ slug ]);
 
   return (
     <section className="min-h-screen py-8 px-8 md:px-12 lg:px-24 relative pt-10">
