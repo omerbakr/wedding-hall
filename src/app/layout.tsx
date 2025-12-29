@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Corinthia } from "next/font/google";
 import "./globals.css";
 import SmoothScroll from "@/providers/SmoothScroll";
-
-import { Corinthia } from "next/font/google";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-
 
 const corinthia = Corinthia({
   subsets: ["latin"],
@@ -41,9 +36,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${corinthia.variable} antialiased`}
       >
         <SmoothScroll>
-          <Navbar />
           <main>{children}</main>
-          <Footer />
         </SmoothScroll>
       </body>
     </html>
