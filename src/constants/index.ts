@@ -53,9 +53,9 @@ export const serviceImages: readonly ServiceImage[] = [
 
 export const navLinks: readonly NavLink[] = [
   { name: "Hizmetlerimiz", href: "#hizmetlerimiz" },
-  { name: "İletişime Geçin", href: "#iletisim" },
   { name: "Yorumlarınız", href: "#yorumlar" },
   { name: "Ulaşım", href: "#ulasim" },
+  { name: "Bizimle Paylaştıklarınız", href: "/share" },
 ] as const;
 
 export const socialMediaLinks: readonly SocialLink[] = [
