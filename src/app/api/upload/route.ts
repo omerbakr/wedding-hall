@@ -16,7 +16,10 @@ const MIMETYPE_MAP: Record<string, string> = {
 
 export async function POST(req: NextRequest) {
   try {
-    const ip = req.headers.get("x-forwarded-for") ?? "127.0.0.1";
+    const forwardedFor = req.headers.get("x-forwarded-for");
+    const realIp = req.headers.get("x-real-ip");
+
+    const ip = realIp || forwardedFor?.split(",")[0].trim() || "127.0.0.1";
     const { success } = await rateLimit.limit(ip);
 
     if (!success) {
@@ -30,23 +33,26 @@ export async function POST(req: NextRequest) {
     const file = formData.get("file") as File;
     const slug = formData.get("slug") as string;
 
-    const slugRegex = /^[a-z0-9-]+$/;
+    const slugRegex = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
     if (!file || !slug)
       return NextResponse.json({ error: "Eksik bilgi" }, { status: 400 });
 
-    if (!slugRegex.test(slug) || slug.length > 50)
+    if (!slugRegex.test(slug) || slug.length < 5 || slug.length > 50)
       return NextResponse.json(
         {
           error:
-            "Geçersiz etkinlik ismi! (Sadece harf, rakam ve tire kullanılabilir)",
+            "Geçersiz etkinlik ismi! (5-50 karakter, sadece harf, rakam ve tire)",
         },
         { status: 400 }
       );
 
     if (!Object.keys(MIMETYPE_MAP).includes(file.type))
       return NextResponse.json(
-        { error: "Sadece resim dosyası (JPG, PNG, WEBP, HEIC) yükleyebilirsiniz." },
+        {
+          error:
+            "Sadece resim dosyası (JPG, PNG, WEBP, HEIC) yükleyebilirsiniz.",
+        },
         { status: 400 }
       );
 
@@ -85,7 +91,7 @@ export async function POST(req: NextRequest) {
 
     const {
       data: { publicUrl },
-    } = await supabase.storage.from("wedding-uploads").getPublicUrl(fileName);
+    } = supabase.storage.from("wedding-uploads").getPublicUrl(fileName);
 
     const { error: dbError } = await supabase.from("photos").insert({
       event_slug: slug,
@@ -101,7 +107,10 @@ export async function POST(req: NextRequest) {
         .remove([fileName]);
 
       if (deleteError) {
-        console.error("Critical: Failed to remove orphaned file from storage:", fileName);
+        console.error(
+          "Critical: Failed to remove orphaned file from storage:",
+          fileName
+        );
       } else {
         console.info("Cleanup: Uploaded file rolled back:", fileName);
       }
