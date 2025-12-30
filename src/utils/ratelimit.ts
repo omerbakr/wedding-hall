@@ -5,7 +5,7 @@ const redis = Redis.fromEnv();
 
 export const rateLimit = new Ratelimit({
   redis: redis,
-  limiter: Ratelimit.slidingWindow(5, "1d"),
+  limiter: Ratelimit.slidingWindow(50, "1d"),
   analytics: true,
   prefix: "@upstash/ratelimit",
 });

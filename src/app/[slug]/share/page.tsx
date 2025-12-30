@@ -4,6 +4,7 @@ import { use, useEffect, useState, useMemo } from "react";
 import Image from "next/image";
 
 import { createClient } from "@/utils/supabase/client";
+import ImageUpload from "@/components/ImageUpload";
 
 type Photo = {
   id: number;
@@ -71,14 +72,14 @@ export default function LivePage({ params }: { params: Promise<{ slug: string }>
         alt="Event background"
         width={750}
         height={750}
-        className="absolute top-30 left-5 md:top-20 md:left-10 w-[70%] min-w-sm max-w-xl opacity-50"
+        className="absolute top-30 left-5 md:top-20 md:left-10 w-[70%] min-w-sm max-w-xl opacity-50 hidden"
       />
       <Image
         src="/images/flower-br-corner.webp"
         alt="Event background"
         width={500}
         height={500}
-        className="absolute bottom-10 right-10 w-[40%] min-w-2/12 max-w-xs"
+        className="absolute bottom-10 right-10 w-[40%] min-w-2/12 max-w-xs hidden"
       />
 
       <div className="flex-center gap-4 mb-6">
@@ -102,7 +103,9 @@ export default function LivePage({ params }: { params: Promise<{ slug: string }>
         />
       </div>
 
-      <div className="columns-2 md:columns-3 lg:columns-4 gap-4 space-y-4">
+      <ImageUpload activeSlug={slug} />
+
+      <div className="columns-2 md:columns-3 lg:columns-4 gap-2">
         {photos.map((photo, index) => {
           const aspectClass = PATTERNS[index % PATTERNS.length];
 
