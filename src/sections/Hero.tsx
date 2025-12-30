@@ -14,7 +14,7 @@ import { heroImages } from "@/constants";
 gsap.registerPlugin(ScrollTrigger);
 
 interface HeroProps {
-  activeSlug: string;
+  activeSlug?: string;
 }
 
 const Hero = ({ activeSlug }: HeroProps) => {
@@ -81,6 +81,8 @@ const Hero = ({ activeSlug }: HeroProps) => {
       },
     });
 
+    const scrollTriggerInstance = scrollTimeline.scrollTrigger;
+
     scrollTimeline.to(titleRef.current, {
       yPercent: -50,
       ease: "none",
@@ -89,7 +91,7 @@ const Hero = ({ activeSlug }: HeroProps) => {
     return () => {
       mainTimeline.kill();
       scrollTimeline.kill();
-      ScrollTrigger.getAll().forEach((trigger) => trigger.kill());
+      scrollTriggerInstance?.kill();
       lenis.start();
     };
   }, [lenis]);
@@ -147,10 +149,11 @@ const Hero = ({ activeSlug }: HeroProps) => {
             Gelinle damada bir anı bırakın ✨
           </p>
 
-          <Link href={`/${activeSlug}/share`}>
-            <button className="bg-white text-primary font-bold px-4 py-2 rounded-sm">
-              Paylaş
-            </button>
+          <Link 
+            href={`/${activeSlug}/share`} 
+            className="bg-white text-primary font-bold px-4 py-2 rounded-sm"
+          >
+            Paylaş
           </Link>
         </div>
       </div>
