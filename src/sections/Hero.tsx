@@ -1,36 +1,45 @@
 "use client";
 
+import { useEffect, useRef } from "react";
+
+import Image from "next/image";
+import Link from "next/link";
+
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/all";
-import { useEffect, useRef } from "react";
 import { useLenis } from "lenis/react";
-import Image from "next/image";
 
 import { heroImages } from "@/constants";
-import HeroContent from "@/components/HeroText";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const Hero = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
+interface HeroProps {
+  activeSlug?: string;
+}
 
+const Hero = ({ activeSlug }: HeroProps) => {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
+  const titleRef = useRef<HTMLHeadingElement>(null);
   const lenis = useLenis();
 
   useEffect(() => {
-    if (!lenis || !containerRef.current) return;
+    if (!lenis || !containerRef.current || !contentRef.current || !titleRef.current) return;
 
+    lenis.scrollTo(0, { immediate: true });
     lenis.stop();
 
     const images = gsap.utils.toArray<HTMLDivElement>(".hero-img");
-
-    const tl = gsap.timeline({
+    
+    const mainTimeline = gsap.timeline({
       onComplete: () => {
         lenis.start();
+        ScrollTrigger.refresh();
       },
     });
 
     images.forEach((img, i) => {
-      tl.fromTo(
+      mainTimeline.fromTo(
         img,
         { clipPath: "inset(100% 0% 0% 0%)" },
         {
@@ -42,7 +51,7 @@ const Hero = () => {
       );
     });
 
-    tl.to(
+    mainTimeline.to(
       containerRef.current,
       {
         width: "100vw",
@@ -53,10 +62,36 @@ const Hero = () => {
       "+=0.4"
     );
 
-    ScrollTrigger.refresh();
+    mainTimeline.to(
+      contentRef.current,
+      {
+        opacity: 1,
+        duration: 0.8,
+        ease: "power2.out",
+      },
+      "-=0.3"
+    );
+
+    const scrollTimeline = gsap.timeline({
+      scrollTrigger: {
+        trigger: titleRef.current,
+        start: "center center",
+        end: "bottom top",
+        scrub: 1.5,
+      },
+    });
+
+    const scrollTriggerInstance = scrollTimeline.scrollTrigger;
+
+    scrollTimeline.to(titleRef.current, {
+      yPercent: -50,
+      ease: "none",
+    });
 
     return () => {
-      tl.kill();
+      mainTimeline.kill();
+      scrollTimeline.kill();
+      scrollTriggerInstance?.kill();
       lenis.start();
     };
   }, [lenis]);
@@ -65,33 +100,63 @@ const Hero = () => {
     <section className="flex-center h-screen w-screen overflow-hidden">
       <div
         ref={containerRef}
-        className="relative w-[300px] h-[400px] overflow-hidden"
+        className="relative w-60 h-80 sm:w-[300px] sm:h-[400px] overflow-hidden"
       >
-        {heroImages.map((img, i) => {
-          return (
-            <div
-              key={i}
-              className="hero-img absolute top-0 left-0 w-full h-full"
-              style={{
-                clipPath: "inset(100% 0% 0% 0%)",
-                zIndex: i + 1,
-              }}
-            >
-              <Image
-                src={img.imgPath}
-                alt="hero-photo"
-                fill
-                sizes="(max-width: 767px) 100vh, 100vw"
-                className="object-cover"
-                priority={i < 2}
-                loading="eager"
-              />
-            </div>
-          );
-        })}
+        {heroImages.map((img, i) => (
+          <div
+            key={i}
+            className="hero-img absolute inset-0 [clip-path:inset(100%_0%_0%_0%)]"
+            style={{ zIndex: i + 1 }}
+          >
+            <Image
+              src={img.imgPath}
+              alt={`Şelale Düğün Salonu düğün fotoğrafı ${i + 1}`}
+              fill
+              sizes="(max-width: 767px) 100vh, 100vw"
+              className="object-cover"
+              loading="eager"
+              priority={i === heroImages.length - 1}
+            />
+          </div>
+        ))}
       </div>
 
-      <HeroContent />
+      <div
+        ref={contentRef}
+        className="flex flex-col items-center justify-center w-screen absolute z-10 opacity-0"
+      >
+        <div className="flex-center w-screen px-5 lg:justify-between">
+          <p className="text-white/90 max-lg:hidden">
+            Sizin Hikayeniz, Bizim Sahnemiz.
+          </p>
+          <h1
+            ref={titleRef}
+            className="text-8xl font-bold font-corinthia text-white pr-6"
+          >
+            Şelale
+          </h1>
+          <h1 className="sr-only">
+            Şelale Düğün Salonu – Doğanın İçinde Unutulmaz Düğünler
+          </h1>
+          <p className="text-right text-white/90 max-lg:hidden">
+            Aşkınızı kutlamak için en doğal, <br /> en büyüleyici atmosfer.
+          </p>
+        </div>
+
+        <div className="col-center gap-2 text-white sm:hidden">
+          <p>Şu an düğünde misiniz?</p>
+          <p className="text-xl font-semibold mt-1">
+            Gelinle damada bir anı bırakın ✨
+          </p>
+
+          <Link 
+            href={`/${activeSlug}/share`} 
+            className="bg-white text-primary font-bold px-4 py-2 rounded-sm"
+          >
+            Paylaş
+          </Link>
+        </div>
+      </div>
     </section>
   );
 };
