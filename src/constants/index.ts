@@ -117,3 +117,14 @@ export const transportRoutes: readonly TransportRoute[] = [
     href: "https://www.eshot.gov.tr/tr/TransportationTimetable/358/289",
   },
 ] as const;
+
+export const UPLOAD_CONFIG = {
+  MAX_FILE_SIZE: 5 * 1024 * 1024,
+  ALLOWED_TYPES: ["image/jpeg", "image/png", "image/webp", "image/heic"],
+  MIMETYPE_MAP: {
+    "image/jpeg": "jpg",
+    "image/png": "png",
+    "image/webp": "webp",
+    "image/heic": "heic",
+  } as Record<string, string>,
+}

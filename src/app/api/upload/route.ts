@@ -4,15 +4,7 @@ import { v4 as uuidv4 } from "uuid";
 
 import { rateLimit } from "@/utils/ratelimit";
 import { createClient } from "@/utils/supabase/server";
-
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
-const MIMETYPE_MAP: Record<string, string> = {
-  "image/jpeg": "jpg",
-  "image/png": "png",
-  "image/webp": "webp",
-  "image/heic": "heic",
-  "image/jpg": "jpg",
-};
+import { UPLOAD_CONFIG } from "@/constants";
 
 export async function POST(req: NextRequest) {
   try {
@@ -47,16 +39,16 @@ export async function POST(req: NextRequest) {
         { status: 400 }
       );
 
-    if (!Object.keys(MIMETYPE_MAP).includes(file.type))
+    if (!Object.keys(UPLOAD_CONFIG.MIMETYPE_MAP).includes(file.type))
       return NextResponse.json(
         {
           error:
-            "Sadece resim dosyası (JPG, PNG, WEBP, HEIC) yükleyebilirsiniz.",
+            "Sadece resim dosyası (JPG, JPEG, PNG, WEBP, HEIC) yükleyebilirsiniz.",
         },
         { status: 400 }
       );
 
-    if (file.size > MAX_FILE_SIZE)
+    if (file.size > UPLOAD_CONFIG.MAX_FILE_SIZE)
       return NextResponse.json(
         { error: "Dosya çok büyük (max 5MB)" },
         { status: 400 }
@@ -77,7 +69,7 @@ export async function POST(req: NextRequest) {
         { status: 404 }
       );
 
-    const fileExt = MIMETYPE_MAP[file.type];
+    const fileExt = UPLOAD_CONFIG.MIMETYPE_MAP[file.type];
     const fileName = `${slug}/${uuidv4()}.${fileExt}`;
 
     const { error: uploadError } = await supabase.storage
