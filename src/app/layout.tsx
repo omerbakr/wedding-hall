@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Corinthia } from "next/font/google";
 import "./globals.css";
+import { Toaster } from "react-hot-toast";
+
 import SmoothScroll from "@/providers/SmoothScroll";
 
 const corinthia = Corinthia({
@@ -36,7 +38,22 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${corinthia.variable} antialiased`}
       >
         <SmoothScroll>
-          <main>{children}</main>
+          <main>
+            {children}
+
+            <Toaster
+              position="bottom-center"
+              toastOptions={{
+                duration: 3000,
+                style: {
+                  background: "#d7b468",
+                  color: "#fff",
+                  fontSize: "15px",
+                  fontWeight: "600"
+                },
+              }}
+            />
+          </main>
         </SmoothScroll>
       </body>
     </html>
