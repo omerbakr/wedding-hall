@@ -157,7 +157,7 @@ const Hero = ({ activeSlug }: HeroProps) => {
             </p>
 
             <Link
-              href={`/${activeSlug}/share`}
+              href={`/${activeSlug}`}
               className="bg-white text-primary font-bold px-4 py-2 rounded-sm"
             >
               Paylaş

@@ -22,9 +22,30 @@ export default function LivePage({ params }: { params: Promise<{ slug: string }>
   const { slug } = use(params);
 
   const [photos, setPhotos] = useState<Photo[]>([]);
+  const [isEventActive, setIsEventActive] = useState(false);
   const supabase = useMemo(() => createClient(), []);
 
   useEffect(() => {
+    const checkEventActive = async () => {
+      const now = new Date().toISOString();
+
+      const { data, error } = await supabase
+        .from("events")
+        .select("id")
+        .eq("slug", slug)
+        .lte("starts_at", now)
+        .gte("ends_at", now)
+        .maybeSingle();
+
+      if (!error && data) {
+        setIsEventActive(true);
+      } else {
+        setIsEventActive(false);
+      }
+    };
+
+    checkEventActive();
+
     const fetchPhotos = async () => {
       const { data, error } = await supabase
         .from("photos")
@@ -67,21 +88,6 @@ export default function LivePage({ params }: { params: Promise<{ slug: string }>
 
   return (
     <section className="min-h-screen py-8 px-8 md:px-12 lg:px-24 relative pt-10">
-      <Image
-        src="/images/flower-tl-corner.webp"
-        alt="Event background"
-        width={750}
-        height={750}
-        className="absolute top-30 left-5 md:top-20 md:left-10 w-[70%] min-w-sm max-w-xl opacity-50 hidden"
-      />
-      <Image
-        src="/images/flower-br-corner.webp"
-        alt="Event background"
-        width={500}
-        height={500}
-        className="absolute bottom-10 right-10 w-[40%] min-w-2/12 max-w-xs hidden"
-      />
-
       <div className="flex-center gap-4 mb-6">
         <Image
           src="/images/flower-left.webp"
@@ -103,7 +109,7 @@ export default function LivePage({ params }: { params: Promise<{ slug: string }>
         />
       </div>
 
-      <ImageUpload activeSlug={slug} />
+      {isEventActive && <ImageUpload activeSlug={slug} />}
 
       <div className="columns-2 md:columns-3 lg:columns-4 gap-2">
         {photos.map((photo, index) => {
