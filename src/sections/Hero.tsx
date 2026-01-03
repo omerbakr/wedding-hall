@@ -150,15 +150,15 @@ const Hero = ({ activeSlug }: HeroProps) => {
         </div>
 
         {activeSlug && (
-          <div className="col-center gap-2 text-white sm:hidden">
+          <div className="col-center gap-1.5 text-white sm:hidden">
             <p>Şu an düğünde misiniz?</p>
-            <p className="text-xl font-semibold mt-1">
-              Gelinle damada bir anı bırakın ✨
+            <p className="text-xl font-semibold mt-0.5">
+              Gelin & Damada bir anı bırakın
             </p>
 
             <Link
               href={`/${activeSlug}`}
-              className="bg-white text-primary font-bold px-4 py-2 rounded-sm"
+              className="bg-primary font-bold px-4 py-2 rounded-sm"
             >
               Paylaş
             </Link>
