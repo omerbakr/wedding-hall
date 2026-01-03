@@ -22,7 +22,7 @@ const Services = () => {
     () => {
       const images = gsap.utils.toArray<HTMLElement>(".floating-image");
 
-      const startDelay = 1;
+      const startDelay = 2;
       const spreadDuration = 4;
       const imageAnimDuration = 2;
 
@@ -38,6 +38,7 @@ const Services = () => {
         },
       });
 
+
       tl.from(".service-title", {
         y: -50,
         opacity: 0,
@@ -45,19 +46,18 @@ const Services = () => {
         ease: "power2.out",
       });
 
-      tl.to("#dot1",
-        {
-          duration: totalSceneDuration,
-          ease: "none",
-          motionPath: {
-            path: path1,
-            start: 0,
-            end: 3,
-          },
+      tl.to("#dot1", {
+        duration: totalSceneDuration,
+        ease: "none",
+        motionPath: {
+          path: path1,
+          start: 0,
+          end: 3,
         },
-      );
+      }, 0);
 
-      tl.to("#dot2",
+      tl.to(
+        "#dot2",
         {
           duration: totalSceneDuration,
           ease: "none",
@@ -66,7 +66,8 @@ const Services = () => {
         "<"
       );
 
-      tl.to("#dot3",
+      tl.to(
+        "#dot3",
         {
           duration: totalSceneDuration,
           ease: "none",
@@ -122,6 +123,7 @@ const Services = () => {
 
   return (
     <section
+      id="hizmetlerimiz"
       ref={container}
       className="services h-screen w-full overflow-hidden relative text-white"
     >

@@ -6,7 +6,7 @@ const currentYear = new Date().getFullYear();
 
 const Footer = () => {
   return (
-    <footer className="footer">
+    <footer className="footer mt-20">
       <div className="w-full h-full grid grid-cols-1 lg:grid-cols-3 gap-5 pb-10">
         <div className="col-center">
           <span className="font-corinthia font-bold text-7xl">Şelale</span>
