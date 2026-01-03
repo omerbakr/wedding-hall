@@ -1,3 +1,4 @@
+import Events from "@/sections/Events";
 import Hero from "@/sections/Hero";
 import Services from "@/sections/Services";
 import Testimonials from "@/sections/Testimonials";
@@ -11,6 +12,7 @@ const Page = async () => {
   return (
     <>
       <Hero activeSlug={activeSlug} />
+      <Events />
       <Services />
       <Testimonials />
       <Transportation />
