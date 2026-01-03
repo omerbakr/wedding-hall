@@ -18,7 +18,7 @@ const Page = async () => {
 
   return (
     <section className="flex flex-col p-4 md:p-8 mt-4 text-primary w-full mx-auto">
-      <h1 className="text-center font-corinthia font-bold text-5xl pb-5 border-b">
+      <h1 className="text-center font-corinthia font-bold text-4xl pb-5 border-b md:text-5xl">
         Geçmiş Albümlerimiz
       </h1>
       

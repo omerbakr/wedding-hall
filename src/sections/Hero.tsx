@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-
 import Image from "next/image";
 import Link from "next/link";
 
@@ -21,84 +20,90 @@ const Hero = ({ activeSlug }: HeroProps) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const ctxRef = useRef<gsap.Context | null>(null);
+  
   const lenis = useLenis();
 
   useEffect(() => {
-    if (
-      !lenis ||
-      !containerRef.current ||
-      !contentRef.current ||
-      !titleRef.current
-    )
-      return;
+    if (!containerRef.current || !contentRef.current || !titleRef.current) return;
 
-    lenis.scrollTo(0, { immediate: true });
-    lenis.stop();
+    ctxRef.current = gsap.context(() => {
+      
+      const sessionKey = "hero-intro-played";
+      const hasPlayed = sessionStorage.getItem(sessionKey);
+      const images = gsap.utils.toArray<HTMLDivElement>(".hero-img");
 
-    const images = gsap.utils.toArray<HTMLDivElement>(".hero-img");
+      if (!hasPlayed) {
+        
+        if (lenis) {
+          lenis.scrollTo(0, { immediate: true });
+          lenis.stop();
+        }
 
-    const mainTimeline = gsap.timeline({
-      onComplete: () => {
-        lenis.start();
-        ScrollTrigger.refresh();
-      },
-    });
+        const mainTimeline = gsap.timeline({
+          onComplete: () => {
+            if (lenis) lenis.start();
+            ScrollTrigger.refresh();
+            sessionStorage.setItem(sessionKey, "true");
+          },
+        });
 
-    images.forEach((img, i) => {
-      mainTimeline.fromTo(
-        img,
-        { clipPath: "inset(100% 0% 0% 0%)" },
-        {
-          clipPath: "inset(0% 0% 0% 0%)",
-          duration: 0.6,
-          ease: "power1.out",
+        images.forEach((img, i) => {
+          mainTimeline.fromTo(
+            img,
+            { clipPath: "inset(100% 0% 0% 0%)" },
+            {
+              clipPath: "inset(0% 0% 0% 0%)",
+              duration: 0.6,
+              ease: "power1.out",
+            },
+            i === 0 ? 0 : `-=${gsap.utils.random(0.45, 0.49)}`
+          );
+        });
+
+        mainTimeline.to(
+          containerRef.current,
+          {
+            width: "100vw",
+            height: "100vh",
+            duration: 1.2,
+            ease: "expo.inOut",
+          },
+          "+=0.4"
+        );
+
+        mainTimeline.to(
+          contentRef.current,
+          {
+            opacity: 1,
+            duration: 0.8,
+            ease: "power2.out",
+          },
+          "-=0.3"
+        );
+
+      } else {
+        gsap.set(containerRef.current, { width: "100vw", height: "100vh" });
+        gsap.set(contentRef.current, { opacity: 1 });
+        gsap.set(images, { clipPath: "inset(0% 0% 0% 0%)" });
+      }
+
+      gsap.to(titleRef.current, {
+        yPercent: -50,
+        ease: "none",
+        scrollTrigger: {
+          trigger: titleRef.current,
+          start: "center center",
+          end: "bottom top",
+          scrub: 1.5,
         },
-        i === 0 ? 0 : `-=${gsap.utils.random(0.45, 0.49)}`
-      );
-    });
+      });
 
-    mainTimeline.to(
-      containerRef.current,
-      {
-        width: "100vw",
-        height: "100vh",
-        duration: 1.2,
-        ease: "expo.inOut",
-      },
-      "+=0.4"
-    );
-
-    mainTimeline.to(
-      contentRef.current,
-      {
-        opacity: 1,
-        duration: 0.8,
-        ease: "power2.out",
-      },
-      "-=0.3"
-    );
-
-    const scrollTimeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: titleRef.current,
-        start: "center center",
-        end: "bottom top",
-        scrub: 1.5,
-      },
-    });
-
-    const scrollTriggerInstance = scrollTimeline.scrollTrigger;
-
-    scrollTimeline.to(titleRef.current, {
-      yPercent: -50,
-      ease: "none",
-    });
+    }, containerRef);
 
     return () => {
-      mainTimeline.kill();
-      scrollTimeline.kill();
-      scrollTriggerInstance?.kill();
-      lenis.start();
+      ctxRef.current?.revert();
+      if (lenis) lenis.start();
     };
   }, [lenis]);
 
